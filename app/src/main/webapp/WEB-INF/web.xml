@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>gv-graph</servlet-name>
+        <servlet-class>servlet.GraphVizGraphServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>gv-digraph</servlet-name>
+        <servlet-class>servlet.GraphVizDigraphServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>uml-class</servlet-name>
+        <servlet-class>servlet.PlantUmlClassServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ping</servlet-name>
+        <servlet-class>servlet.PingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>gv-graph</servlet-name>
+        <url-pattern>/gv/graph/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>gv-digraph</servlet-name>
+        <url-pattern>/gv/digraph/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>uml-class</servlet-name>
+        <url-pattern>/uml/class/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ping</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
