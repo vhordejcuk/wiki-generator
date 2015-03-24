@@ -13,20 +13,20 @@ import com.google.common.io.ByteStreams;
 public class GraphVizService {
     private CacheService cacheService;
 
-    public GraphVizService(CacheService cacheService) {
+    public GraphVizService(final CacheService cacheService) {
         this.cacheService = cacheService;
     }
 
-    public byte[] generateGraph(String source) throws ExecutionException {
+    public byte[] generateGraph(final String source) throws ExecutionException {
         return getFromCacheOrGenerate("graph {" + source + "}");
     }
 
-    public byte[] generateDigraph(String source) throws ExecutionException {
+    public byte[] generateDigraph(final String source) throws ExecutionException {
         return getFromCacheOrGenerate("digraph {" + source + "}");
     }
 
     private byte[] getFromCacheOrGenerate(final String source) throws ExecutionException {
-        String key = Encoder.getHash(source);
+        final String key = Encoder.getHash(source);
 
         return cacheService.get(key, new Callable<byte[]>() {
             @Override
@@ -36,14 +36,14 @@ public class GraphVizService {
         });
     }
 
-    private static byte[] generate(String source) throws IOException, InterruptedException {
-        Process process = new ProcessBuilder("dot", "-Tpng").start();
-        OutputStream osToProcess = process.getOutputStream();
-        PrintWriter toProcess = new PrintWriter(osToProcess);
+    private static byte[] generate(final String source) throws IOException, InterruptedException {
+        final Process process = new ProcessBuilder("dot", "-Tpng").start();
+        final OutputStream osToProcess = process.getOutputStream();
+        final PrintWriter toProcess = new PrintWriter(osToProcess);
         toProcess.write(source);
         toProcess.close();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(Configuration.DEFAULT_IMAGE_SIZE);
-        InputStream fromProcess = process.getInputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(Configuration.DEFAULT_IMAGE_SIZE);
+        final InputStream fromProcess = process.getInputStream();
         ByteStreams.copy(fromProcess, baos);
         fromProcess.close();
         baos.close();

@@ -12,11 +12,11 @@ import service.Encoder;
 
 public abstract class AbstractUmlHttpServlet extends AbstractHttpServlet {
     @Override
-    void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    void process(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         setupForPNG(response);
-        String dataEncoded = request.getParameter("data");
-        String data = Encoder.decode(dataEncoded);
-        ByteArrayInputStream bais = new ByteArrayInputStream(process(data));
+        final String dataEncoded = request.getParameter("data");
+        final String data = Encoder.decode(dataEncoded);
+        final ByteArrayInputStream bais = new ByteArrayInputStream(process(data));
         ByteStreams.copy(bais, response.getOutputStream());
         response.flushBuffer();
     }
