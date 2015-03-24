@@ -1,31 +1,49 @@
 # Wiki Generator
 
-Backend used by my [personal Wiki](http://voho.cz/wiki/) to generate various figures. 
-Powered by [Spring Boot](http://projects.spring.io/spring-boot/).
-This is not intended to be universal, so the outpout is customized to match my webpage.
+Backend used by my [personal Wiki](http://voho.cz/wiki/) to generate various figures.
+Just a bunch of simple servlets with some caching.
 
-## GraphViz API [/gv/graph]
+## GraphViz graphs
 
-### POST
+### GET /gv/graph?data={STRING}
 
-Generates an image from the source code received.
+- parameters
+    - *data* = URL encoded source code (without *graph { }* envelope)
+- response
+    - response body is a PNG image
 
-- request body: DOT source without the enclosing element (graph/digraph)
-- response: PNG image
+## GraphViz di-graphs
 
-### DELETE
+### GET /gv/digraph?data={STRING}
 
-Deletes all cached images related to this resource.
+- parameters
+    - *data* = URL encoded source code (without *digraph { }* envelope)
+- response
+    - response body is a PNG image
 
-## PlantUML class diagrams [/uml/class]
+## PlantUML class diagrams
 
-### POST
+### GET /uml/class?data={STRING}
 
-Generates an image from the source code received.
+- parameters
+    - *data* = URL encoded source code (without *@umlstart*)
+- response
+    - response body is a PNG image
 
-- request body: Plant UML source
-- response: PNG image
+## PlantUML activity diagrams
 
-### DELETE
+### GET /uml/activity?data={STRING}
 
-Deletes all cached images related to this resource.
+- parameters
+    - *data* = URL encoded source code (without *@umlstart*)
+- response
+    - response body is a PNG image
+
+## PlantUML sequence diagrams
+
+### GET /uml/sequence?data={STRING}
+
+- parameters
+    - *data* = URL encoded source code (without *@umlstart*)
+- response
+    - response body is a PNG image
