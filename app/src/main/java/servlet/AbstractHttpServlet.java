@@ -42,7 +42,7 @@ public abstract class AbstractHttpServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
     }
 
-    protected void printTextLine(HttpServletResponse response, String text) throws IOException {
-        response.getWriter().println(text);
+    protected void printTextLine(HttpServletResponse response, String text, Object... arguments) throws IOException {
+        response.getWriter().println(String.format(text, arguments));
     }
 }
