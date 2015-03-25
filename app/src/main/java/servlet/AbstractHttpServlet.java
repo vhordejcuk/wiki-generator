@@ -11,37 +11,60 @@ import service.CacheService;
 import service.GraphVizService;
 import service.PlantUmlService;
 
-public abstract class AbstractHttpServlet extends HttpServlet {
+/**
+ * Abstract base class for all servlets.
+ */
+abstract class AbstractHttpServlet extends HttpServlet {
     protected static final CacheService cacheService = new CacheService();
     protected static final GraphVizService graphVizService = new GraphVizService(cacheService);
     protected static final PlantUmlService plantUmlService = new PlantUmlService(cacheService);
 
     @Override
-    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         try {
-            process(req, resp);
+            process(request, response);
         } catch (final Exception e) {
             throw new ServletException(e);
         }
     }
 
-    abstract void process(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    /**
+     * Processes the request to a response throwing error.
+     *
+     * @param request request
+     * @param response response
+     * @throws Exception when something goes bad
+     */
+    protected abstract void process(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+    /**
+     * Sets content type headers for PNG.
+     *
+     * @param response response
+     */
     protected void setupForPNG(final HttpServletResponse response) {
         response.setContentType("image/png");
         response.setCharacterEncoding("utf-8");
     }
 
-    protected void setupForSVG(final HttpServletResponse response) {
-        response.setContentType("image/svg+xml");
-        response.setCharacterEncoding("utf-8");
-    }
-
+    /**
+     * Sets content type headers for plain text in UTF-8.
+     *
+     * @param response response
+     */
     protected void setupForText(final HttpServletResponse response) {
         response.setContentType("text/plain");
         response.setCharacterEncoding("utf-8");
     }
 
+    /**
+     * Prints a single text line.
+     *
+     * @param response response
+     * @param text text (can have format)
+     * @param arguments format arguments (optional)
+     * @throws IOException when printing fails
+     */
     protected void printTextLine(final HttpServletResponse response, final String text, final Object... arguments) throws IOException {
         response.getWriter().println(String.format(text, arguments));
     }

@@ -10,9 +10,12 @@ import com.google.common.io.ByteStreams;
 
 import service.Encoder;
 
-public abstract class AbstractUmlHttpServlet extends AbstractHttpServlet {
+/**
+ * Abstract base class for Plant UML servlets.
+ */
+abstract class AbstractUmlHttpServlet extends AbstractHttpServlet {
     @Override
-    void process(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected void process(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         setupForPNG(response);
         final String dataEncoded = request.getParameter("data");
         final String data = Encoder.decode(dataEncoded);

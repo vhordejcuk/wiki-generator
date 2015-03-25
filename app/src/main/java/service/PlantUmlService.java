@@ -9,22 +9,29 @@ import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 
+/**
+ * PlantUML calling service.
+ */
 public class PlantUmlService {
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
+    /**
+     * Creates a new instance.
+     *
+     * @param cacheService cache service
+     */
     public PlantUmlService(final CacheService cacheService) {
         this.cacheService = cacheService;
     }
 
+    /**
+     * Generates UML class diagram.
+     *
+     * @param source diagram source
+     * @return generated image
+     * @throws ExecutionException when generating fails
+     */
     public byte[] generateUmlClass(final String source) throws ExecutionException {
-        return getFromCacheOrGenerate("@startuml\n" + source.trim() + "\n@enduml\n");
-    }
-
-    public byte[] generateUmlSequence(final String source) throws ExecutionException {
-        return getFromCacheOrGenerate("@startuml\n" + source.trim() + "\n@enduml\n");
-    }
-
-    public byte[] generateUmlActivity(final String source) throws ExecutionException {
         return getFromCacheOrGenerate("@startuml\n" + source.trim() + "\n@enduml\n");
     }
 
@@ -44,5 +51,27 @@ public class PlantUmlService {
         final ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream(Configuration.DEFAULT_IMAGE_SIZE);
         reader.generateImage(outputBuffer, new FileFormatOption(FileFormat.PNG, false));
         return outputBuffer.toByteArray();
+    }
+
+    /**
+     * Generates UML sequence diagram.
+     *
+     * @param source diagram source
+     * @return generated image
+     * @throws ExecutionException when generating fails
+     */
+    public byte[] generateUmlSequence(final String source) throws ExecutionException {
+        return getFromCacheOrGenerate("@startuml\n" + source.trim() + "\n@enduml\n");
+    }
+
+    /**
+     * Generates UML activity diagram.
+     *
+     * @param source diagram source
+     * @return generated image
+     * @throws ExecutionException when generating fails
+     */
+    public byte[] generateUmlActivity(final String source) throws ExecutionException {
+        return getFromCacheOrGenerate("@startuml\n" + source.trim() + "\n@enduml\n");
     }
 }
